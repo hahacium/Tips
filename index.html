@@ -1,0 +1,450 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Demo - Tips Plugin</title>
+<link rel="stylesheet" href="static/css/jquery.tips.css">
+<style type="text/css">
+        * { font-family: 'Roboto Slab', serif; margin: 0; padding: 0; }
+        hr { border: 1px solid #ccc; margin-bottom: 20px; }
+        h1, h2 { margin: 20px 0px 10px; }
+        a { text-decoration: none;}
+        .container { display: flex; width: 100%; margin: auto; }
+        strong { padding-bottom: 1px; border-bottom: 1px dotted; }
+        p { margin: 10px 0px; }
+        code { font-family: monospace; color: #2d2d2d; background: whitesmoke; display: block; padding: 10px; border: 1px solid #ccc; overflow: scroll;}
+        a.eval-js { color: whitesmoke; padding: 5px 10px; display: inline-block; margin-bottom: 10px; background: #2d2d2d; border-radius: 2px; }
+        span.muted { font-size: 17px; color: #8B7373; }
+        span.code { font-family: monospace; color: #2d2d2d; background: whitesmoke; padding: 5px; border: 1px solid #ccc; }
+        div.code-runner { margin: 20px 20px;}
+        ul, ol { margin: 10px 50px; }
+        ul li { margin-bottom: 10px; }
+        .hidden { display: none; }
+        span.k { display: inline-block; width: 175px; }
+        span.c { color: #F7BCBC; padding-left: 30px; }
+        .plugin-options{width: 50%; padding-left: 100px;}
+        .plugin-options label { display: inline-block; width: 265px; }
+        span.tips-position span.k { display: inline; } 
+        .code-runner{width: 50%;}
+        .tips-index .muted { display: block; color: #AD9D9D; }
+        .tips-index .muted:hover { color: #333; }
+        .latest-update { padding: 0px 30px; border: 1px dashed; margin: 30px 0; box-sizing: border-box; }
+    </style>
+</head>
+<body>
+<h1 style="text-align: center; margin: 20px 0px;">Jquery Tips插件</h1>
+<hr>
+<div class="container">
+<div class="plugin-options">
+<h1 id="tips-generator">自定义</h1>
+<p>
+<label for="tips-text">文本</label>
+<input type="text" id="tips-text" class="tips-text" value="World">
+</p>
+<p>
+<label for="tips-heading">标题</label>
+<input type="text" id="tips-heading" class="tips-heading" value="Hello">
+</p>
+<p>
+<label for="tips-transition">过渡</label>
+<select name="tips-transition" id="tips-transition" class="tips-transition">
+<option value="fade">Fade</option>
+<option selected="selected" value="slide">Slide</option>
+<option value="plain">Plain</option>
+</select>
+</p>
+<p>
+<label for="allow-tips-close">允许Tips关闭</label>
+<select name="allow-tips-close" id="allow-tips-close" class="allow-tips-close">
+<option value="true">True</option>
+ <option value="false">False</option>
+</select>
+</p>
+<p>
+<label for="auto-hide-tips">自动隐藏</label>
+<select name="auto-hide-tips" id="auto-hide-tips" class="auto-hide-tips">
+<option value="true">True</option>
+<option value="false">False</option>
+</select>
+</p>
+<p class="autohide-after sub-item">
+<label for="autohide-after">隐藏时间(ms)</label>
+<input type="text" id="autohide-after" class="autohide-after" value="3000">
+</p>
+<p class="">
+<label for="stack-tipss">允许多个Tips</label>
+<select name="stack-tipss" id="stack-tipss" class="stack-tipss">
+<option value="true">Yes</option>
+<option value="false">No</option>
+</select>
+</p>
+<p class="stack-length sub-item">
+<label for="stack-length">Tips数量</label>
+<input type="text" id="stack-length" class="stack-length" value="5">
+</p>
+<p class="">
+<label for="tips-position">Tips位置</label>
+<select name="tips-position" id="tips-position" class="tips-position">
+<option value="bottom-left">Bottom Left</option>
+<option value="bottom-right">Bottom Right</option>
+<option value="top-left">Top Left</option>
+<option value="top-right">Top Right</option>
+<option value="top-center">Top Center</option>
+<option value="bottom-center">Bottom Center</option>
+<option value="mid-center">Mid Center</option>
+<option value="custom-position">Custom</option>
+</select>
+</p>
+<div class="custom-tips-position sub-item" style="display:none;">
+<label for="custom-tips-position">Custom Tips Position</label>
+<ul>
+<li>
+<label for="left-position">Left</label>
+<input type="text" class="left-position" id="left-position">
+</li>
+<li>
+<label for="right-position">Right</label>
+<input type="text" class="right-position" id="right-position">
+</li>
+<li>
+<label for="top-position">Top</label>
+<input type="text" class="top-position" id="top-position">
+</li>
+<li>
+<label for="bottom-position">Bottom</label>
+<input type="text" class="bottom-position" id="bottom-position">
+</li>
+</ul>
+</div>
+<p class="">
+<label for="text-align">图标</label>
+<select name="icon-type" id="icon-type" class="text-align">
+<option selected="selected" value="">-- No icon --</option>
+<option value="warning">Warning</option>
+<option value="success">Success</option>
+<option value="error">Error</option>
+<option value="info">Information</option>
+</select>
+</p>
+<div class="custom-color-info" style="">
+<p>
+<label for="tips-bg">背景颜色</label>
+<input type="color" id="tips-bg" class="tips-bg" value="#444444">
+</p>
+<p>
+<label for="tips-text-color">文字颜色</label>
+<input type="color" id="tips-text-color" class="tips-text-color" value="#eeeeee">
+</p>
+</div>
+<p class="">
+<label for="text-align">文本对齐</label>
+<select name="text-align" id="text-align" class="text-align">
+<option value="left">Left</option>
+<option value="right">Right</option>
+<option value="center">Center</option>
+ </select>
+</p>
+<p class="">
+<label for="add-tips-events">Tips伴随事件</label>
+<select name="add-tips-events" id="add-tips-events" class="add-tips-events">
+<option value="true">True</option>
+<option value="false">False</option>
+</select>
+</p>
+<p class="">
+<label for="show-loader">显示进度条</label>
+<select name="show-loader" id="show-loader" class="show-loader">
+<option value="true">True</option>
+<option selected value="false">False</option>
+</select>
+</p>
+<p>
+<label for="loader-bg">进度条颜色</label>
+<input type="color" id="loader-bg" class="loader-bg" value="#408080">
+</p>
+</div>
+<script src="static/js/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="static/js/jquery.tips.js"></script>
+<script type="text/javascript">
+        $(document).ready(function() {
+            
+            $('.eval-js').on('click', function ( e ) {
+                e.preventDefault();
+
+                if ( !$(this).hasClass('generate-tips') ) {
+                    var code = $(this).siblings('pre').find('code').text();
+                    code.replace("<span class='hidden'>", '');
+                    code.replace("</span");
+
+                    eval( code );
+                };
+            });
+
+            $('#icon-type').on('change', function () {
+                if ( !$(this).val() ) {
+                    $('.custom-color-info').show();
+                    $('.tips-icon-line').hide();
+                    $('.tips-bgColor-line').show();
+                    $('.tips-textColor-line').show();
+                } else {
+                    $('.tips-icon-line').show();
+                    $('.custom-color-info').hide();
+                    $('.tips-bgColor-line').hide();
+                    $('.tips-textColor-line').hide();
+                    $('.tips-icon-line span.tips-icon').text( $(this).val() );
+                }
+            });
+
+            // You are about to see some extremely horrible code that can be MUCH MUCH improved,
+            // I've knowlingly done it that way, please don't judge me based upon this ;)
+            $(document).ready(function () {
+                
+                function generateCode () {
+                    var text = $('.plugin-options #tips-text').val(); 
+                    var heading = $('.plugin-options #tips-heading').val(); 
+                    var transition = $('.tips-transition').val(); 
+                    var allowTipsClose = $('#allow-tips-close').val(); 
+                    var autoHide = $('#auto-hide-tips').val(); 
+                    var stackTipss = $('#stack-tipss').val(); 
+                    var tipsPosition = $('#tips-position').val() 
+                    var tipsBg = $('#tips-bg').val(); 
+                    var tipsTextColor = $('#tips-text-color').val();
+                    var tipsIcon = $('#icon-type').val();
+                    var textAlign = $('#text-align').val();
+                    var tipsEvents = $('#add-tips-events').val();
+                    var loader = $('#show-loader').val();
+                    var loaderBg = $('#loader-bg').val();
+
+                    if ( text ) {
+                        $('.tips-text-line').show(); 
+                        $('.tips-text-line .tips-text').text( text ); 
+                    } else {
+                        $('.tips-text-line').hide() 
+                        $('.tips-text-line .tips-text').text(''); 
+                    };
+
+                    if ( heading ) {
+                        $('.tips-heading-line').show(); 
+                        $('.tips-heading-line .tips-heading').text( heading ); 
+                    } else {
+                        $('.tips-heading-line').hide() 
+                        $('.tips-heading-line .tips-heading').text(''); 
+                    }; 
+
+                    if ( transition ) {
+                        $('.tips-transition-line').show() 
+                        $('.tips-transition-line .tips-transition').text( transition ); 
+                    } else {
+                        $('.tips-transition-line').hide(); 
+                        $('.tips-transition-line .tips-transition').text('fade'); 
+                    } 
+
+                    if ( allowTipsClose ) {
+                        $('.tips-allowTipsClose-line').show(); 
+                        $('.tips-allowTipsClose-line .tips-allowTipsClose').text( allowTipsClose ); 
+                    } else {
+                        $('.tips-allowTipsClose-line').hide(); 
+                        $('.tips-allowTipsClose-line .tips-allowTipsClose').text( false ); 
+                    } 
+
+                    if ( autoHide && ( autoHide == 'false' ) ) {
+                        $('.tips-hideAfter-line').show(); 
+                        $('.tips-hideAfter-line .tips-hideAfter').text('false'); 
+                        $('.autohide-after').hide(); 
+                    } else {
+                        $('.tips-hideAfter-line').show(); 
+                        $('.tips-hideAfter-line .tips-hideAfter').text( $('#autohide-after').val() ? $('#autohide-after').val() : 3000 ); 
+                        $('.autohide-after').show(); 
+                    } 
+
+                    if ( stackTipss && stackTipss != 'true') {
+                        $('.tips-stackLength-line').show(); 
+                        $('.tips-stackLength-line .tips-stackLength').text( stackTipss ); 
+                        $('.stack-length').hide(); 
+                    } else {
+                        $('.stack-length').show(); 
+                        $('.tips-stackLength-line').show(); 
+                        $('.tips-stackLength-line .tips-stackLength').text( $('#stack-length').val() ? $('#stack-length').val() : 5 ); 
+                    } 
+
+                    if ( tipsPosition && ( tipsPosition !== 'custom-position' ) ) {
+                        $('.tips-position-string-line').show(); 
+                        $('.custom-tips-position').hide(); 
+                        $('.tips-position-string-line .tips-position').text( tipsPosition ); 
+                    } else {
+                        $('.tips-position-string-line').hide(); 
+                        $('.tips-position-string-line .tips-position').text(''); 
+                    } 
+
+                    if ( tipsPosition && ( tipsPosition === 'custom-position' ) ) {
+                        $('.custom-tips-position').show(); 
+                        $('.tips-position-string-obj').show(); 
+                        var left = $('#left-position').val() ? $('#left-position').val() : 'auto'; 
+                        var right = $('#right-position').val() ? $('#right-position').val() : 'auto'; 
+                        var top = $('#top-position').val() ? $('#top-position').val() : 'auto'; 
+                        var bottom = $('#bottom-position').val() ? $('#bottom-position').val() : 'auto'; 
+                        $('.tips-position-string-obj .tips-position-left').text( ( left !== 'auto' ) ? left : "'" + left + "'" ); 
+                        $('.tips-position-string-obj .tips-position-right').text( ( right !== 'auto' ) ? right : "'" + right + "'" ); 
+                        $('.tips-position-string-obj .tips-position-top').text( ( top !== 'auto' ) ? top : "'" + top + "'" ); 
+                        $('.tips-position-string-obj .tips-position-bottom').text(  ( bottom !== 'auto' ) ? bottom : "'" + bottom + "'"  ); 
+                    } else {
+                        $('.tips-position-string-obj').hide(); 
+                        // $('.tips-position-string-obj tips-position').text('');
+                    } 
+
+                    if ( !tipsIcon ) {
+                        if ( tipsBg ) {
+                            $('.tips-bgColor-line').show(); 
+                            $('.tips-bgColor-line .tips-bgColor').text( tipsBg ); 
+                        } else {
+                            $('.tips-bgColor-line').hide(); 
+                            $('.tips-bgColor-line .tips-bgColor').text(''); 
+                        } 
+
+                        if ( tipsTextColor ) {
+                            $('.tips-textColor-line').show(); 
+                            $('.tips-textColor-line .tips-textColor').text( tipsTextColor ); 
+                        } else {
+                            $('.tips-textColor-line').hide(); 
+                            $('.tips-textColor-line .tips-textColor').text(''); 
+                        } 
+                    }
+
+                    if ( textAlign ) {
+                        $('.tips-textAlign-line').show(); 
+                        $('.tips-textAlign-line .tips-textAlign').text( textAlign ); 
+                    } else {
+                        $('.tips-textAlign-line').hide(); 
+                        $('.tips-textAlign-line .tips-textAlign').text( ''); 
+                    } 
+
+                    if (loader == 'false') {
+                        $('.tips-textLoader').html('false');
+                    } else {
+                        $('.tips-textLoader').html('true');
+                    }
+                    
+                    if (loaderBg) {
+                        $('.tips-textLoaderBg').html(loaderBg);
+                    }
+
+                    if ( tipsEvents == 'false' ) {
+                        $('.tips-beforeShow-line').hide(); 
+                        $('.tips-afterShown-line').hide(); 
+                        $('.tips-beforeHide-line').hide(); 
+                        $('.tips-afterHidden-line').hide(); 
+                    } else {
+                        $('.tips-beforeShow-line').show(); 
+                        $('.tips-afterShown-line').show(); 
+                        $('.tips-beforeHide-line').show(); 
+                        $('.tips-afterHidden-line').show(); 
+                    } 
+                }
+
+                $('#top-position').on('change', function () { $('#bottom-position').val('auto'); });
+                $('#bottom-position').on('change', function () { $('#top-position').val('auto'); });
+                $('#left-position').on('change', function () { $('#right-position').val('auto'); });
+                $('#right-position').on('change', function () {$('#left-position').val('auto'); });
+                $('.plugin-options :input').on('change', function () {
+                  $.tips().reset('all');
+                  generateCode();
+                });
+
+                $('.generate-tips').on('click', function( e ) {
+                  e.preventDefault();
+                  generateTips();
+                });
+
+                function generateTips () {
+                    var options = {};
+
+                    if ( $('.tips-text-line').is(':visible') ) {
+                        options.text = $('.tips-text-line .tips-text').text();
+                    } 
+
+                    if ( $('.tips-heading-line').is(':visible') ) {
+                        options.heading = $('.tips-heading').text(); 
+                    }; 
+
+                    if ( $('.tips-transition-line').is(':visible') ) {
+                        options.showHideTransition = $('.tips-transition-line .tips-transition').text(); 
+                    }; 
+
+                    if ( $('.tips-allowTipsClose-line').is(':visible') ) {
+                        options.allowTipsClose = ( $('.tips-allowTipsClose-line .tips-allowTipsClose').text() === 'true' ) ? true : false; 
+                    }; 
+
+                    if ( $('.tips-hideAfter-line').is(':visible') ) {
+                        options.hideAfter = parseInt($('.tips-hideAfter-line .tips-hideAfter').text(), 10) || false; 
+                    }; 
+
+                    if ( $('.tips-stackLength-line').is(':visible') ) {
+                        options.stack = parseInt($('.tips-stackLength-line .tips-stackLength').text(), 10) || false; 
+                    }; 
+
+                    if ( $('.tips-position-string-line').is(':visible') ) {
+                        options.position = $('.tips-position-string-line .tips-position').text(); 
+                    }; 
+
+                    if ( $('.tips-position-string-obj').is(':visible') ) {
+                        options.position = {}; 
+                        options.position.left =  parseFloat( $('.tips-position .tips-position-left').text() ) || 'auto'; 
+                        options.position.right =  parseFloat( $('.tips-position .tips-position-right').text() ) || 'auto'; 
+                        options.position.top =  parseFloat( $('.tips-position .tips-position-top').text() ) || 'auto'; 
+                        options.position.bottom =  parseFloat( $('.tips-position .tips-position-bottom').text() ) || 'auto'; 
+                    }; 
+
+                    if ( $('.tips-icon-line').is(':visible') ) {
+                        options.icon = $('.tips-icon-line .tips-icon').text();
+                    };
+
+                    if ( $('.tips-bgColor-line').is(':visible') ) {
+                        options.bgColor = $('#tips-bg').val(); 
+                    }; 
+
+                    if ( $('.tips-text-color').is(':visible') ) {
+                        options.textColor = $('#tips-text-color').val(); 
+                    }; 
+
+                    if ( $("#text-align").is(':visible') ) {
+                        options.textAlign = $('#text-align').val(); 
+                    };
+
+                    options.loader = $('.tips-textLoader').html() === 'false' ? false : true;
+                    options.loaderBg = $('.tips-textLoaderBg').html();
+
+                    $.tips( options ); 
+                }
+
+                generateCode(); 
+            });
+        });
+    </script>
+<div class="code-runner">
+<a href="#" class="btn generate-tips eval-js">运行</a>
+<pre style="padding:0px; background: #f0f3f3;"><code style="margin:0px;" class="highlight">
+<span class="nd">$</span>.<span class="nf">tips</span>({
+    <span class="tips-text-line"><span class="k">text</span>: "<span class="tips-text s">Hey there fellas, here is a simple tips. Change the options above and then see the code that generates that tips</span>", <span class="c">// 文本</span></span>
+    <span class="tips-heading-line"><span class="k">heading</span>: '<span class="tips-heading s">How to use</span>', <span class="c">// 标题</span></span>
+    <span class="tips-icon-line"><span class="k">icon</span>: '<span class="tips-icon s"></span>', <span class="c">// 图标</span></span>
+    <span class="tips-transition-line"><span class="k">showHideTransition</span>: '<span class="tips-transition s">fade</span>', <span class="c">// 过渡    fade, slide , plain</span></span>
+    <span class="tips-allowTipsClose-line"><span class="k">allowTipsClose</span>: <spna class="kt tips-allowTipsClose">true</spna>, <span class="c">// 允许Tips关闭     <span class="kt">true</span> , <span class="kt">false</span></span></span>
+    <span class="tips-hideAfter-line"><span class="k">hideAfter</span>: <span class="n tips-hideAfter">3000</span>, <span class="c">// <span class="kt">false</span> 隐藏时间（ms）</span></span>
+    <span class="tips-stackLength-line"><span class="k">stack</span>: <span class="n tips-stackLength">5</span>, <span class="c">// <span class="kt">false</span> 提示数量</span></span>
+    <span class="tips-position-string-line"><span class="k">position</span>: '<span class="s tips-position">bottom-left</span>', <span class="c">// bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values</span></span>
+    <span class="tips-position-string-obj"><span class="k">position</span>: <span class="s tips-position">{ <span class="k">left</span> : <span class="n tips-position-left">20</span>, <span class="k">right</span> : <span class="n tips-position-right">20</span>, <span class="k">top</span> : <span class="n tips-position-top">20</span>, <span class="k">bottom</span> : <span class="n tips-position-bottom">20</span> }</span>, <span class="c">// bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values</span></span>
+    <span class="tips-bgColor-line" style="display: none;"><span class="k">bgColor</span>: '<span class="s tips-bgColor">#444</span>', <span class="c"> // 背景颜色</span></span>
+    <span class="tips-textColor-line" style="display: none;"><span class="k">textColor</span>: '<span class="s tips-textColor">#eee</span>', <span class="c"> // 文本颜色</span></span>
+    <span class="tips-textAlign-line"><span class="k">textAlign</span>: '<span class="s tips-textAlign">left</span>', <span class="c"> // 文本对齐</span></span>
+    <span class="tips-loader-line"><span class="k">loader</span>: <span class="s tips-textLoader">true</span>, <span class="c"> // 显示进度条    true ， false</span></span>
+    <span class="tips-loaderBg-line"><span class="k">loaderBg</span>: '<span class="s tips-textLoaderBg">#9EC600</span>', <span class="c"> // 进度条颜色</span></span>
+    <span class="tips-beforeShow-line"><span class="nb k">beforeShow</span>: <span class="nf tips-beforeShow">function ()</span> {}, <span class="c">// Tips显示前的伴随事件</span></span>
+    <span class="tips-afterShown-line"><span class="nb k">afterShown</span>: <span class="nf tips-afterShown">function ()</span> {}, <span class="c">// Tips显示后的伴随事件</span></span>
+    <span class="tips-beforeHide-line"><span class="nb k">beforeHide</span>: <span class="nf tips-beforeHide">function ()</span> {}, <span class="c">// 提示隐藏之前触发</span></span>
+    <span class="tips-afterHidden-line"><span class="nb k">afterHidden</span>: <span class="nf tips-afterHidden">function ()</span> {} <span class="c"> // 提示隐藏之后触发</span></span>
+});
+              </code></pre>
+</div>
+</div>
+</body>
+</html>
