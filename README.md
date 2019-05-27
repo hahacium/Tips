@@ -1,6 +1,6 @@
 <img src="./img/dome.jpg" />
 **导入文件**
-```html
+```html5
 <link rel="stylesheet" href="./css/jquery.tips.css">
 <script type="text/javascript" src="./js/jquery.tips.js"></script>
 ```
