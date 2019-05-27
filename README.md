@@ -2,6 +2,7 @@
 **导入文件**
 ```html
 <link rel="stylesheet" href="./css/jquery.tips.css">
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript" src="./js/jquery.tips.js"></script>
 ```
 
