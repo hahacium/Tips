@@ -1,6 +1,6 @@
-<img src="./img/dome.jpg" />
+
 **导入文件**
-```html5
+```html
 <link rel="stylesheet" href="./css/jquery.tips.css">
 <script type="text/javascript" src="./js/jquery.tips.js"></script>
 ```
@@ -19,3 +19,4 @@ $.tips({
   position : 'bottom-left'       // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values to position the toast on page
 })
 ```
+<img src="./img/dome.jpg" />
