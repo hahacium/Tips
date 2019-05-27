@@ -1,7 +1,7 @@
 
 **Changing the formatting**
 ```javascript
-$.toast({ 
+$.tips({ 
   text : "Let's test some HTML stuff... <a href='#'>github</a>", 
   showHideTransition : 'slide',  // It can be plain, fade or slide
   bgColor : 'blue',              // Background color for toast
