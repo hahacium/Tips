@@ -1,5 +1,11 @@
+<img src="./img/dome.jpg" />
+**导入文件**
+```html
+<link rel="stylesheet" href="./css/jquery.tips.css">
+<script type="text/javascript" src="./js/jquery.tips.js"></script>
+```
 
-**Changing the formatting**
+**如何使用**
 ```javascript
 $.tips({ 
   text : "Let's test some HTML stuff... <a href='#'>github</a>", 
@@ -12,9 +18,4 @@ $.tips({
   textAlign : 'left',            // Alignment of text i.e. left, right, center
   position : 'bottom-left'       // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values to position the toast on page
 })
-```
-**Changing the formatting**
-```html
-<link rel="stylesheet" href="./css/jquery.tips.css">
-<script type="text/javascript" src="./js/jquery.tips.js"></script>
 ```
